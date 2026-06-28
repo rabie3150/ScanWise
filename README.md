@@ -35,8 +35,9 @@ git clone --branch v2.4.4 --depth 1 https://github.com/libharu/libharu.git deps/
 
 # 2. Fetch WinUI 3 NuGet packages (one-time)
 #    Download nuget.exe from https://dist.nuget.org/ into deps/nuget.exe, then:
-deps/nuget.exe install Microsoft.WindowsAppSDK -OutputDirectory deps/nuget
-deps/nuget.exe install Microsoft.Windows.CppWinRT -OutputDirectory deps/nuget
+deps/nuget.exe install Microsoft.WindowsAppSDK -Version 1.6.250602001 -OutputDirectory deps/nuget
+deps/nuget.exe install Microsoft.Windows.CppWinRT -Version 3.0.260520.1 -OutputDirectory deps/nuget
+deps/nuget.exe install Microsoft.Web.WebView2 -Version 1.0.2651.64 -OutputDirectory deps/nuget
 
 # 3. Configure & build
 .\configure_release.ps1
