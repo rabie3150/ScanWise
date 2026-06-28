@@ -4,11 +4,15 @@
 
 A lightweight, open-source Windows document scanner built with C++20, WinUI 3, and OpenCV. Bring mobile scanning quality to the desktop with perspective correction, smart cropping, and document enhancement — entirely offline.
 
+## Download
+
+Get the latest installer or portable ZIP from the [Releases](https://github.com/rabie3150/ScanWise/releases/latest) page.
+
 ![ScanWise screenshot](docs/app_screenshot.png)
 
 ## Features
 
-- **Drag & drop / clipboard import** — drop images or folders, or paste from the clipboard.
+- **Drag & drop / clipboard import** — drop image files, or paste from the clipboard.
 - **Magic Perspective** — automatic document edge detection with draggable corner handles for manual refinement.
 - **Perspective flattening** — four-point homography transform to straighten angled shots.
 - **Filter presets** — Original, Black & White, Document, Magic Color ✨, and Photo.
@@ -19,12 +23,14 @@ A lightweight, open-source Windows document scanner built with C++20, WinUI 3, a
 ## Requirements
 
 - Windows 10/11 x64
-- Visual Studio 2022 Build Tools or higher (MSVC v143, Windows SDK 10.0.26100.0)
+- Visual Studio 2022 (Community, Professional, Enterprise, or Build Tools) with the **Desktop development with C++** workload
 - CMake 3.28+
-- Ninja (installed automatically by the configure script if missing)
+- Ninja
 - PowerShell
 
 ## Quick Build
+
+> **Note:** The first build compiles OpenCV from source, which can take 15–30 minutes depending on your machine.
 
 Open a PowerShell window and run:
 
