@@ -2,6 +2,12 @@
 
 All notable changes to ScanWise will be documented in this file.
 
+## [0.1.1] - 2026-06-28
+
+### Added
+- Windows installer (`ScanWise_Setup.exe`) built with Inno Setup.
+- `tools/build_installer.ps1` local installer build script.
+
 ## [0.1.0] - 2026-06-28
 
 ### Added

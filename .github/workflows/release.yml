@@ -64,8 +64,16 @@ jobs:
       - name: Create portable package
         run: ./tools/package_portable.ps1
 
+      - name: Install Inno Setup
+        run: choco install innosetup -y
+
+      - name: Build installer
+        run: ./tools/build_installer.ps1
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: out/ScanWise_Portable.zip
+          files: |
+            out/ScanWise_Portable.zip
+            out/ScanWise_Setup.exe
           generate_release_notes: true

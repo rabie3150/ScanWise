@@ -87,15 +87,26 @@ You can also open an image directly on startup:
 
 ## Releases
 
-Pre-built portable ZIP packages are published automatically on the [Releases](https://github.com/rabie3150/ScanWise/releases) page when a version tag (`v*.*.*`) is pushed.
+Pre-built installers and portable packages are published automatically on the [Releases](https://github.com/rabie3150/ScanWise/releases) page when a version tag (`v*.*.*`) is pushed.
 
-To create a release locally, build the app and run:
+| Asset | Description |
+|-------|-------------|
+| `ScanWise_Setup.exe` | Windows installer with Start Menu shortcuts |
+| `ScanWise_Portable.zip` | Portable version, no installation needed |
+
+Run the installer as Administrator if you need to install the Windows App SDK runtime.
+
+To build the installer locally:
+
+```powershell
+.\tools\build_installer.ps1
+```
+
+To build the portable package locally:
 
 ```powershell
 .\tools\package_portable.ps1
 ```
-
-This produces `out\ScanWise_Portable.zip`.
 
 ## Contributing
 
