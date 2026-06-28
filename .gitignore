@@ -1,0 +1,38 @@
+# Build outputs
+out/
+build/
+Build/
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.obj
+*.lib
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
+# Dependencies source (large; fetched by build)
+deps/opencv/
+deps/opencv_contrib/
+deps/libharu/
+deps/nuget/
+deps/nuget.exe
+
+# Temporary scratch work
+scratch/
+detect_debug_out/
+screenshot*.png
+test_scan.png
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Kimi session artifacts
+.kimi-code/

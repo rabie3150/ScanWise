@@ -1,0 +1,70 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache dependency sources
+        id: cache-sources
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps/opencv
+            deps/libharu
+          key: scanwise-sources-${{ runner.os }}-${{ hashFiles('.github/workflows/release.yml') }}-opencv-4.11.0-libharu-2.4.4
+
+      - name: Clone OpenCV
+        if: steps.cache-sources.outputs.cache-hit != 'true'
+        run: git clone --branch 4.11.0 --depth 1 https://github.com/opencv/opencv.git deps/opencv
+
+      - name: Clone libharu
+        if: steps.cache-sources.outputs.cache-hit != 'true'
+        run: git clone --branch v2.4.4 --depth 1 https://github.com/libharu/libharu.git deps/libharu
+
+      - name: Cache build outputs
+        id: cache-build
+        uses: actions/cache@v4
+        with:
+          path: out/build/release/deps
+          key: scanwise-build-${{ runner.os }}-${{ hashFiles('CMakeLists.txt', 'app/CMakeLists.txt', 'engine/**/*', 'app/winui/**/*') }}-opencv-4.11.0-libharu-2.4.4
+
+      - name: Download NuGet
+        run: |
+          New-Item -ItemType Directory -Force -Path deps | Out-Null
+          Invoke-WebRequest -Uri https://dist.nuget.org/win-x86-commandline/latest/nuget.exe -OutFile deps/nuget.exe
+
+      - name: Restore NuGet packages
+        run: |
+          deps/nuget.exe install Microsoft.WindowsAppSDK -OutputDirectory deps/nuget
+          deps/nuget.exe install Microsoft.Windows.CppWinRT -OutputDirectory deps/nuget
+
+      - name: Configure
+        run: ./configure_release.ps1
+
+      - name: Build
+        run: ./build_release.ps1
+
+      - name: Run engine tests
+        run: ./out/build/release/bin/scanwise_engine_tests.exe
+
+      - name: Create portable package
+        run: ./tools/package_portable.ps1
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: out/ScanWise_Portable.zip
+          generate_release_notes: true
